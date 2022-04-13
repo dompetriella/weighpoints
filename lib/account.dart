@@ -1,4 +1,6 @@
+import 'theme.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Account extends StatefulWidget {
   const Account({ Key? key }) : super(key: key);
@@ -30,6 +32,21 @@ class _AccountState extends State<Account> {
             label: 'Profile'
           ),
         ]
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          onPressed: () => context.goNamed('home'),
+          style: ElevatedButton.styleFrom(
+            primary: WPTheme.black,
+            padding: EdgeInsets.all(20),
+            fixedSize: Size(250.0, 50.0)
+          ),
+          child: Container(
+            child: Text('Back to Home'),
+          ),
+        ),
       ),
     );
   }

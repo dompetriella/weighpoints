@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'home.dart';
+import 'account.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,10 +13,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+
+    final _router = GoRouter(
+      routes: [
+        GoRoute(
+          name: 'home',
+          path: '/',
+          builder: (context, state) => const HomePage(title: 'WeighPoints Home')
+        ),
+
+        GoRoute(
+          name: 'account',
+          path: '/account',
+          builder: (context, state) => const Account()
+        ),
+      ]
+      );
+
+    return MaterialApp.router(
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
       title: 'WeighPoints',
       theme: ThemeData.dark(),
-      home: HomePage(title: 'WeighPoints Home')
     );
   }
 }

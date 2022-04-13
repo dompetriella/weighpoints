@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'theme.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({ Key? key, required title }) : super(key: key);
@@ -78,6 +79,21 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Container(
                       child: Text('Sign In'),
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () => context.goNamed('account'),
+                    style: ElevatedButton.styleFrom(
+                      primary: WPTheme.black,
+                      padding: EdgeInsets.all(20),
+                      fixedSize: Size(250.0, 50.0)
+                    ),
+                    child: Container(
+                      child: Text('Go to Account Page'),
                     ),
                   ),
                 ),
