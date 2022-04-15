@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'theme.dart';
 import 'package:go_router/go_router.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({ Key? key, required title }) : super(key: key);
+class LandingPage extends StatefulWidget {
+  const LandingPage({ Key? key, required title }) : super(key: key);
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<LandingPage> createState() => _LandingPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
 
@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -56,33 +57,18 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
-                    onPressed: () => print('account create'),
+                    onPressed: () => print('Google time'),
                     style: ElevatedButton.styleFrom(
                       primary: WPTheme.secondary,
                       padding: EdgeInsets.all(20),
                       fixedSize: Size(250.0, 50.0),
                     ),
                     child: Container(
-                      child: Text('Create Account'),
+                      child: Text('Sign in with Google'),
                     ),
                   ),
                 ),
     
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: () => print('sign in'),
-                    style: ElevatedButton.styleFrom(
-                      primary: WPTheme.black,
-                      padding: EdgeInsets.all(20),
-                      fixedSize: Size(250.0, 50.0)
-                    ),
-                    child: Container(
-                      child: Text('Sign In'),
-                    ),
-                  ),
-                ),
-
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
@@ -93,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                       fixedSize: Size(250.0, 50.0)
                     ),
                     child: Container(
-                      child: Text('Go to Account Page'),
+                      child: Text('Use Local Data'),
                     ),
                   ),
                 ),

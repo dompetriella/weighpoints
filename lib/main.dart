@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'home.dart';
+import 'landing.dart';
 import 'account.dart';
 
 void main() {
@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
     final _router = GoRouter(
       routes: [
         GoRoute(
-          name: 'home',
+          name: 'landing',
           path: '/',
-          builder: (context, state) => const HomePage(title: 'WeighPoints Home')
+          builder: (context, state) => const LandingPage(title: 'WeighPoints Home')
         ),
 
         GoRoute(
