@@ -9,13 +9,34 @@ class AddEntry extends StatefulWidget {
 }
 
 class _AddEntryState extends State<AddEntry> {
+
+  int iter = 0;
+
+  void increaseNumber() {
+    setState(() {
+      iter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        color: Colors.lightBlue,
-        child: Text('Add Entry')
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text('Add Entry'),
+        Padding(
+          padding: EdgeInsets.all(20),
+          child: ElevatedButton(
+            onPressed: increaseNumber, 
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size(100, 100),
+            ),
+            child: Icon(Icons.add)
+          ),
+        ),
+        Text('${iter}'),
+      ],
     );
   }
 }

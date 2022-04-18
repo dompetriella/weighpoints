@@ -36,6 +36,7 @@ class _AccountState extends State<Account> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: WPTheme.primary,
         ),
         bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.amber,
@@ -68,27 +69,28 @@ class _AccountState extends State<Account> {
         ),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () => context.goNamed('landing'),
-                style: ElevatedButton.styleFrom(
-                  primary: WPTheme.black,
-                  padding: EdgeInsets.all(5),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.arrow_back),
-                    Text("Log Out")
-                  ],
-                ),
+            ElevatedButton(
+              onPressed: () => context.goNamed('landing'),
+              style: ElevatedButton.styleFrom(
+                primary: WPTheme.black,
+                padding: EdgeInsets.all(5),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(Icons.arrow_back),
+                  Text("Log Out")
+                ],
               ),
             ),
     
             Expanded(
-              child: accountPages[_selectedIndex]
+              child: Container(
+                padding: EdgeInsets.all(20),
+                width: MediaQuery.of(context).size.width,
+                child: accountPages[_selectedIndex]
+              ),
             ),
           ],
         ),
