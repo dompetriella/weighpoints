@@ -18,24 +18,54 @@ class _AddEntryState extends State<AddEntry> {
     });
   }
 
+  void entryCardPopup(context) {
+    showDialog(context: context, 
+    builder: (BuildContext context) {
+      return AlertDialog();
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text('Add Entry'),
-        Padding(
-          padding: EdgeInsets.all(20),
-          child: ElevatedButton(
-            onPressed: increaseNumber, 
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(100, 100),
-            ),
-            child: Icon(Icons.add)
+        Text(
+          'Add Entry',
+          style: TextStyle(
+            fontSize: 20,
           ),
         ),
-        Text('${iter}'),
+        Padding(
+          padding: EdgeInsets.all(25),
+          child: ElevatedButton(
+            // onPressed: increaseNumber, 
+            onPressed: () {
+              //entryCardPopup(context);
+              showDialog(
+                context: context, 
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    content: Container(
+                      width: 300,
+                      height: 400,
+                    ),
+                  );
+                }
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size(100, 100),
+              primary: WPTheme.primary
+            ),
+            child: const Icon(
+              Icons.add,
+              size: 50,
+            ),
+          ),
+        ),
       ],
     );
   }

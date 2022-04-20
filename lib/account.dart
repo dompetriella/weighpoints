@@ -37,6 +37,9 @@ class _AccountState extends State<Account> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: WPTheme.primary,
+          title: Text('WeighPoints'),
+          titleTextStyle: TextStyle(
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.amber,
