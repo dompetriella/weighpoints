@@ -1,5 +1,6 @@
 import '../theme.dart';
 import 'package:flutter/material.dart';
+import '../components/add_entry_card.dart';
 
 class AddEntry extends StatefulWidget {
   const AddEntry({ Key? key }) : super(key: key);
@@ -21,7 +22,7 @@ class _AddEntryState extends State<AddEntry> {
   void entryCardPopup(context) {
     showDialog(context: context, 
     builder: (BuildContext context) {
-      return AlertDialog();
+      return EntryCard();
     });
 
   }
@@ -32,7 +33,7 @@ class _AddEntryState extends State<AddEntry> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           'Add Entry',
           style: TextStyle(
             fontSize: 20,
@@ -43,18 +44,7 @@ class _AddEntryState extends State<AddEntry> {
           child: ElevatedButton(
             // onPressed: increaseNumber, 
             onPressed: () {
-              //entryCardPopup(context);
-              showDialog(
-                context: context, 
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: Container(
-                      width: 300,
-                      height: 400,
-                    ),
-                  );
-                }
-              );
+              entryCardPopup(context);
             },
             style: ElevatedButton.styleFrom(
               minimumSize: Size(100, 100),
