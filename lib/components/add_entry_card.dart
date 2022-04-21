@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weigh_points/theme.dart';
 import '../data/data.dart';
 
 class EntryCard extends StatefulWidget {
@@ -22,16 +23,31 @@ class _EntryCardState extends State<EntryCard> {
         child: Column(
           children: [
             Text("Add Data Entry"),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text("Project",)
+            ),
             Row(
               children: [
-                Text("Project?"),
-                DropdownButton(
-                  items: Data.projects,
-                  onChanged: (dynamic selectedOption){
-                    setState(() {
-                      currentProject = selectedOption;
-                    });
-                  })
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: WPTheme.primary
+                    ),
+                    onPressed: () => print('New Project'), 
+                    child: const Text('New Project')),
+                ),
+                Expanded(
+                  child: DropdownButton(
+                    isExpanded: true,
+                    items: Data.projects,
+                    onChanged: (dynamic selectedOption) {
+                      setState(() {
+                        currentProject = selectedOption;
+                      });
+                    }),
+                )
               ],
             ),
           ],

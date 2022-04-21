@@ -11,14 +11,6 @@ class AddEntry extends StatefulWidget {
 
 class _AddEntryState extends State<AddEntry> {
 
-  int iter = 0;
-
-  void increaseNumber() {
-    setState(() {
-      iter++;
-    });
-  }
-
   void entryCardPopup(context) {
     showDialog(context: context, 
     builder: (BuildContext context) {
