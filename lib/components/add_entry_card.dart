@@ -14,6 +14,21 @@ class _EntryCardState extends State<EntryCard> {
   var currentProject = "";
   var currentProjectType = '';
 
+  void selectDate(BuildContext context) {
+    showDatePicker(
+      context: context, 
+      initialDate: DateTime.now(), 
+      firstDate: DateTime(2000), 
+      lastDate: DateTime.now()
+    );
+  }
+
+  void selectTime(BuildContext context) {
+    showTimePicker(
+      context: context, 
+      initialTime: TimeOfDay.now()
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +141,7 @@ class _EntryCardState extends State<EntryCard> {
                             ),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.all(15),
                                 primary: WPTheme.primary
                               ),
                               onPressed: () => print('New Type'), 
@@ -149,6 +165,55 @@ class _EntryCardState extends State<EntryCard> {
 
                     ],
                   ),
+                ),
+              ),
+              
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: WPTheme.primary,
+                      padding: const EdgeInsets.all(15)
+                    ),
+                    onPressed: () => selectDate(context), 
+                    child: Row(
+
+                      children: const [
+                        Icon(Icons.calendar_month),
+                        Text("Select Date"),
+                      ],
+                    )
+                  ),
+
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: WPTheme.primary,
+                      padding: EdgeInsets.all(15)
+                    ),
+                    onPressed: () => selectTime(context), 
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        Icon(Icons.timer),
+                        Text("Select Time"),
+                      ],
+                    )
+                  ),
+                ],
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ElevatedButton(
+                  style:  ElevatedButton.styleFrom(
+                    primary: WPTheme.primary
+                  ),
+                  onPressed: () => print("confirmed"), 
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text("Confirm Data"),
+                  )
                 ),
               ),
             ],
