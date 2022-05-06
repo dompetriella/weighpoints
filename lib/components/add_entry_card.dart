@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:weigh_points/theme.dart';
 import '../data/data.dart';
+import '../models/entry.dart';
 
 class EntryCard extends StatefulWidget {
   const EntryCard({ Key? key }) : super(key: key);
@@ -11,23 +13,56 @@ class EntryCard extends StatefulWidget {
 
 class _EntryCardState extends State<EntryCard> {
 
-  var currentProject = "";
-  var currentProjectType = '';
+  Entry entry = Entry();
+  bool isConfirmedEnabled = false;
 
-  void selectDate(BuildContext context) {
-    showDatePicker(
+  void isConfirm() {
+    if (entry.type != '' && entry.project != '' && entry.data != '') {
+      isConfirmedEnabled = true;
+    }
+    else {
+      isConfirmedEnabled = false;
+    }
+    print(isConfirmedEnabled);
+  }
+
+  void selectDate(BuildContext context) async {
+    DateTime? date = await showDatePicker(
       context: context, 
       initialDate: DateTime.now(), 
       firstDate: DateTime(2000), 
       lastDate: DateTime.now()
     );
+
+    setState(() {
+      entry.date = date as DateTime;
+
+      entry.dateText = entry.date.toString().split(' ')[0];
+    });
+
   }
 
-  void selectTime(BuildContext context) {
-    showTimePicker(
+  void selectTime(BuildContext context) async {
+    TimeOfDay? time = await showTimePicker(
       context: context, 
       initialTime: TimeOfDay.now()
     );
+    
+    setState(() {
+      entry.time = time as TimeOfDay;
+      var hour = entry.time.hour < 10 ? '0' + entry.time.hour.toString() : entry.time.hour.toString();
+      var minute = entry.time.minute < 10 ? '0' + entry.time.minute.toString() : entry.time.hour.toString();
+      entry.timeText = '$hour:$minute';
+    });
+
+  }
+
+  void printEntry (Entry entry) {
+    print('Project: ${entry.project}');
+    print('Project Type: ${entry.type}');
+    print('Entry: ${entry.data} ${entry.units}');
+    print('Date: ${entry.date}');
+    print('Time: ${entry.time}\n');
   }
 
   @override
@@ -65,7 +100,7 @@ class _EntryCardState extends State<EntryCard> {
                             ),
 
                             Text(
-                              currentProject,
+                              entry.project,
                               style: const TextStyle(
                                 color: WPTheme.secondary
                               ),
@@ -96,7 +131,8 @@ class _EntryCardState extends State<EntryCard> {
                               items: Data.projects,
                               onChanged: (dynamic selectedOption) {
                                 setState(() {
-                                  currentProject = selectedOption;
+                                  entry.project = selectedOption;
+                                  isConfirm();
                                 });
                               }),
                           ),
@@ -123,7 +159,7 @@ class _EntryCardState extends State<EntryCard> {
                           children: [
                             const Text('Type: '),
                             Text(
-                              currentProjectType,
+                              entry.type,
                               style: const TextStyle(
                                 color: WPTheme.secondary
                               ),
@@ -155,7 +191,8 @@ class _EntryCardState extends State<EntryCard> {
                               items: Data.types,
                               onChanged: (dynamic selectedOption) {
                                 setState(() {
-                                  currentProjectType = selectedOption;
+                                  entry.type = selectedOption;
+                                  isConfirm();
                                 });
                               }),
                           ),
@@ -171,35 +208,76 @@ class _EntryCardState extends State<EntryCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: WPTheme.primary,
-                      padding: const EdgeInsets.all(15)
-                    ),
-                    onPressed: () => selectDate(context), 
-                    child: Row(
+                  Column(
+                    children: [
+                      Text(entry.dateText),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: WPTheme.primary,
+                          padding: const EdgeInsets.all(15)
+                        ),
+                        onPressed: () => selectDate(context), 
+                        child: Row(
 
-                      children: const [
-                        Icon(Icons.calendar_month),
-                        Text("Select Date"),
-                      ],
-                    )
+                          children: const [
+                            Icon(Icons.calendar_month),
+                            Text("Select Date"),
+                          ],
+                        )
+                      ),
+                    ],
                   ),
 
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: WPTheme.primary,
-                      padding: EdgeInsets.all(15)
-                    ),
-                    onPressed: () => selectTime(context), 
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
-                        Icon(Icons.timer),
-                        Text("Select Time"),
-                      ],
-                    )
+                  Column(
+                    children: [
+                      Text(entry.timeText),
+                      ElevatedButton(
+                        
+                        style: ElevatedButton.styleFrom(
+                          primary: WPTheme.primary,
+                          padding: EdgeInsets.all(15)
+                        ),
+                        onPressed: () => selectTime(context), 
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: const [
+                            Icon(Icons.timer),
+                            Text("Select Time"),
+                          ],
+                        )
+                      ),
+                    ],
                   ),
+                ],
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("Entry:"),
+                  SizedBox(
+                    width: 100,
+                    height: 31,
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      textAlignVertical: TextAlignVertical.center,
+                      onChanged: (String inputText) {
+                        setState(() {
+                          entry.data = inputText;
+                          isConfirm();
+                        });
+                        
+                      },
+                    ),
+                  ),
+                  DropdownButton(
+                    items: Data.units,
+                    onChanged: (dynamic selectedOption) {
+                      setState(() {
+                        entry.units = selectedOption;
+                      });
+                    }),
                 ],
               ),
 
@@ -207,9 +285,11 @@ class _EntryCardState extends State<EntryCard> {
                 padding: const EdgeInsets.only(top: 20.0),
                 child: ElevatedButton(
                   style:  ElevatedButton.styleFrom(
-                    primary: WPTheme.primary
+                    primary: isConfirmedEnabled ? WPTheme.primary : Colors.grey
                   ),
-                  onPressed: () => print("confirmed"), 
+                  onPressed: () => {
+                    printEntry(entry)
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Text("Confirm Data"),

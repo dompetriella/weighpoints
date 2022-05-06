@@ -11,4 +11,11 @@ class Data {
     DropdownMenuItem(child: Text("Weight"),value: "Weight"),
     DropdownMenuItem(child: Text("Length"),value: "Length"),
   ];
+
+    static List<DropdownMenuItem<String>> units = [
+    DropdownMenuItem(child: Text("g"),value: "grams"),
+    DropdownMenuItem(child: Text("kg"),value: "kilograms"),
+    DropdownMenuItem(child: Text("lbs"),value: "pounds"),
+    DropdownMenuItem(child: Text("oz"),value: "ounces"),
+  ];
 }
